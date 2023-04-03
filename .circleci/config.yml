@@ -1,5 +1,16 @@
 version: 2.1
 
+orbs:
+  slack: circleci/slack@4.9.3
+
+commands:
+  notify_on_fail:
+    steps :
+      - slack/notify:
+          event: fail
+          channel: devops
+          template: basic_fail_l
+
 # commands:
 #   destroy-environment:
 #     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -49,6 +60,7 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
+      - notify_on_fail
 
   build-backend:
     docker:
@@ -66,6 +78,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
+      - notify_on_fail
 
   test-frontend:
     docker:
@@ -94,6 +107,7 @@ jobs:
              cd backend
              npm install
              npm test
+      - notify_on_fail
             
   scan-frontend:
     docker:
@@ -110,6 +124,7 @@ jobs:
              npm audit fix --force --audit-level=critical
              npm audit fix --force --audit-level=critical
              npm audit --audit-level=critical
+      - notify_on_fail
 
   scan-backend:
     docker:
@@ -126,6 +141,7 @@ jobs:
              npm audit fix --force --audit-level=critical
              npm audit fix --force --audit-level=critical
              npm audit --audit-level=critical
+      - notify_on_fail
 
 #   deploy-infrastructure:
 #     docker:
@@ -293,6 +309,15 @@ jobs:
 #             fi
             
 
+  notify_on_success:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - slack/notify:
+          event: pass
+          channel: devops
+          template: success_tagged_deployment_1
+
 workflows:
   default:
     jobs:
@@ -306,6 +331,12 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
+      - notify_on_success:
+          requires:
+            - test-frontend
+            - test-backend
+            - scan-backend
+            - scan-frontend
       # - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
       #     filters:
