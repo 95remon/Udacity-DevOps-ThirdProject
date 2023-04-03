@@ -1,15 +1,15 @@
 version: 2.1
 
-orbs:
-  slack: circleci/slack@4.9.3
+# orbs:
+#   slack: circleci/slack@4.9.3
 
-commands:
-  notify_on_fail:
-    steps :
-      - slack/notify:
-          event: fail
-          channel: devops
-          template: basic_fail_l
+# commands:
+#   notify_on_fail:
+#     steps :
+#       - slack/notify:
+#           event: fail
+#           channel: devops
+#           template: basic_fail_l
 
 # commands:
 #   destroy-environment:
@@ -107,7 +107,7 @@ jobs:
              cd backend
              npm install
              npm test
-      - notify_on_fail
+      # - notify_on_fail
             
   scan-frontend:
     docker:
@@ -141,7 +141,7 @@ jobs:
              npm audit fix --force --audit-level=critical
              npm audit fix --force --audit-level=critical
              npm audit --audit-level=critical
-      - notify_on_fail
+      # - notify_on_fail
 
 #   deploy-infrastructure:
 #     docker:
@@ -309,14 +309,14 @@ jobs:
 #             fi
             
 
-  notify_on_success:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - slack/notify:
-          event: pass
-          channel: devops
-          template: success_tagged_deployment_1
+  # notify_on_success:
+  #   docker:
+  #     - image: cimg/base:stable
+  #   steps:
+  #     - slack/notify:
+  #         event: pass
+  #         channel: devops
+  #         template: success_tagged_deployment_1
 
 workflows:
   default:
@@ -331,12 +331,12 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
-      - notify_on_success:
-          requires:
-            - test-frontend
-            - test-backend
-            - scan-backend
-            - scan-frontend
+      # - notify_on_success:
+      #     requires:
+      #       - test-frontend
+      #       - test-backend
+      #       - scan-backend
+      #       - scan-frontend
       # - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
       #     filters:
