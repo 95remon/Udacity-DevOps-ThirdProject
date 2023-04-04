@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.9.3
 
+
 commands:
   notify_on_fail:
     steps :
@@ -11,7 +12,7 @@ commands:
           channel: devops
           template: basic_fail_l
 
-commands:
+
   install_awscli:
     description: Install AWS CLI v2
     steps:
