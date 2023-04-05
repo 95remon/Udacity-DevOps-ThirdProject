@@ -220,7 +220,7 @@ jobs:
     docker:
       - image: cimg/python:3.10
     steps:
-      - checkout50.112.251.189
+      - checkout
       - install_ansible
       - install_awscli
       - install_nodejs
