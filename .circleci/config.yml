@@ -87,9 +87,6 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - frontend-deps-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: Install dependencies
           command: |
@@ -110,9 +107,6 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-        keys:
-          - backend-deps-{{ checksum "backend/package-lock.json" }}
       - run:
           name: Install dependencies
           command: |
@@ -133,9 +127,6 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-        keys:
-          - frontend-deps-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: Install dependencies
           command: |
@@ -153,9 +144,6 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-        keys:
-          - backend-deps-{{ checksum "backend/package-lock.json" }}
       - run:
           name: Install dependencies
           command: |
@@ -173,9 +161,6 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-        keys:
-          - frontend-deps-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: Install dependencies
           command: |
@@ -193,9 +178,6 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-        keys:
-          - backend-deps-{{ checksum "backend/package-lock.json" }}
       - run:
           name: Install dependencies
           command: |
