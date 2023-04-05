@@ -187,6 +187,7 @@ jobs:
     steps:
       - checkout
       - install_awscli
+      - install_nodejs
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -228,7 +229,6 @@ jobs:
       - checkout
       - install_ansible
       - install_awscli
-      - install_nodejs
       - add_ssh_keys:
           fingerprints: ["72:7b:5a:47:62:ed:51:cf:62:d6:03:63:1a:c4:64:1d"]
       - attach_workspace:
