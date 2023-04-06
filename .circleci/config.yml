@@ -78,7 +78,7 @@ commands:
               cd ~/project/backend
               sudo npm install -g n
               sudo n 13.8.0
-              sudo npm run migration:revert
+              sudo npm run migrations:revert
             fi
             
 jobs:
