@@ -76,8 +76,9 @@ commands:
             if (( $SUCCESS == 1 ));
             then
               cd ~/project/backend
-              npm install
-              npm run migration:revert
+              sudo npm install -g n
+              sudo n 13.8.0
+              sudo npm run migration:revert
             fi
             
 jobs:
