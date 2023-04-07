@@ -71,7 +71,8 @@ commands:
           when: on_fail
           command: |
             SUCCESS=$(curl --insecure  https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7})
-            if [ "$SUCCESS" -eq "1" ]
+            echo ${SUCCESS}
+            if test "$SUCCESS" -eq "1"
             then
               cd ~/project/backend
               sudo npm install -g n
